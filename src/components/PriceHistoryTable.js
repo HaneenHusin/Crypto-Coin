@@ -15,7 +15,7 @@ import {
   Box,
   Typography
 } from "@mui/material";
-
+import { COINGECKO_URL } from "../utils/constants";
 const PriceHistoryTable = () => {
   const [startDate, setStartDate] = useState("");
   const [prices, setPrices] = useState([]);
@@ -31,19 +31,19 @@ const PriceHistoryTable = () => {
     try {
     
       const bitcoinResponse = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range",
+        `${COINGECKO_URL}/v3/coins/bitcoin/market_chart/range`,
         {
           params: {
             vs_currency: "eur",
-            from: new Date(startDate).getTime() / 1000, // Convert to timestamp
-            to: new Date().getTime() / 1000, // Current timestamp
+            from: new Date(startDate).getTime() / 1000, 
+            to: new Date().getTime() / 1000, 
           },
         }
       );
 
      
       const ethereumResponse = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range",
+        `${COINGECKO_URL}/v3/coins/ethereum/market_chart/range`,
         {
           params: {
             vs_currency: "eur",

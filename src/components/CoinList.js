@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from "react";
 import { Box, Button, TextField, Grid, Typography,Container} from "@mui/material";
 import CustomButton from "./ui/CustomButton";
 import AddCoinForm from "./AddCoinForm";
-import { fetchCoins } from "../http/apiService";
+import { fetchCoins } from "../utils/apiService";
 
 const CoinsList = ({ coins, onEdit, onDelete }) => {
   const [editingCoin, setEditingCoin] = useState(null);
@@ -41,7 +41,6 @@ const CoinsList = ({ coins, onEdit, onDelete }) => {
   const refreshCoins = async () => {
     try {
       const fetchedCoins = await fetchCoins();
-      debugger
       coins=fetchedCoins;
     } catch (error) {
       console.error("Failed to fetch coins:", error);

@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:3000/api'; 
+import { API_BASE_URL } from "./constants";
 
 export const fetchCoins = async () => {
   try {
@@ -22,7 +21,6 @@ export const addCoin = async (coin) => {
 };
 export const editCoin = async (id, updatedCoin) => {
   try {
-    debugger
     const response = await axios.post(`${API_BASE_URL}/coins/${id}`, updatedCoin);
     return response.data; 
   } catch (error) {

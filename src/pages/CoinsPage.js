@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container,Typography } from '@mui/material';
 import CoinsList from '../components/CoinList';
 import TotalValue from '../components/TotalValue';
-import { fetchCoins, editCoin, deleteCoin } from '../http/apiService';
+import { fetchCoins, editCoin, deleteCoin } from '../utils/apiService';
 
 const CoinsPage = () => {
   const [coins, setCoins] = useState([]);

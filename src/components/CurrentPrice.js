@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
+import { COINGECKO_URL } from "../utils/constants";
 
 const CurrentPrice = () => {
   const [coins, setCoins] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://api.coingecko.com/api/v3/coins/markets", {
+      .get( `${COINGECKO_URL}/v3/coins/markets`, {
         params: {
           vs_currency: "eur",
           ids: "bitcoin,ethereum",

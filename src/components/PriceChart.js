@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
+import { COINGECKO_URL } from "../utils/constants";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function PriceChart({ coinId = "bitcoin" }) {
@@ -25,12 +25,12 @@ function PriceChart({ coinId = "bitcoin" }) {
 
   useEffect(() => {
     const fetchChartData = async () => {
-      setLoading(true); // Start loading
-      setError(null); // Clear any previous errors
+      setLoading(true); 
+      setError(null); 
 
       try {
         const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart`,
+          ` ${COINGECKO_URL}/v3/coins/${coinId}/market_chart`,
           {
             params: {
               vs_currency: "eur",
@@ -61,7 +61,7 @@ function PriceChart({ coinId = "bitcoin" }) {
         console.error("Error fetching chart data:", error);
         setError("Failed to fetch chart data. Please try again later.");
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false); 
       }
     };
 

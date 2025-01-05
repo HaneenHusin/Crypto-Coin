@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { Typography, Box, TextField, Button } from "@mui/material";
 import CustomButton from "./ui/CustomButton";
-import {addCoin} from "../http/apiService";
+import {addCoin} from "../utils/apiService";
 
 
 const AddCoinForm = () => {

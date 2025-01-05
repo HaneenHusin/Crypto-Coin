@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardContent, Typography, Grid,Box } from "@mui/material";
+import { COINGECKO_URL } from "../utils/constants";
 
 const WeeklyChange = () => {
   const [priceChange, setPriceChange] = useState({
@@ -11,12 +12,11 @@ const WeeklyChange = () => {
   useEffect(() => {
     const fetchWeeklyChange = async () => {
       try {
-        debugger
         const bitcoinResponse = await axios.get(
-          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur"
+          `${COINGECKO_URL}/v3/simple/price?ids=bitcoin&vs_currencies=eur`
         );
         const ethereumResponse = await axios.get(
-          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+          `${COINGECKO_URL}/v3/simple/price?ids=ethereum&vs_currencies=eur`
         );
 
         const bitcoinCurrentPrice = bitcoinResponse.data.bitcoin.eur;
@@ -24,7 +24,7 @@ const WeeklyChange = () => {
 
        
         const bitcoinHistoryResponse = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart",
+          `${COINGECKO_URL}/v3/coins/bitcoin/market_chart`,
           {
             params: {
               vs_currency: "eur",
@@ -33,7 +33,7 @@ const WeeklyChange = () => {
           }
         );
         const ethereumHistoryResponse = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/ethereum/market_chart",
+          `${COINGECKO_URL}/v3/coins/ethereum/market_chart`,
           {
             params: {
               vs_currency: "eur",
