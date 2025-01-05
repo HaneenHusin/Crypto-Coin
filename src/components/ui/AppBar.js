@@ -93,7 +93,8 @@ export default function BackToTop(props) {
                 <Typography variant="button" sx={{ marginLeft: 0.5, color: '#fff' }}>
                   Coins
                 </Typography>
-              </IconButton>
+              </IconButton>  
+
             </Link>
           </Box>
 
