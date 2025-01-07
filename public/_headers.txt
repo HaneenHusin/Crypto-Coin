@@ -1,0 +1,4 @@
+/*
+Access-Control-Allow-Origin: *
+accept: application/json,
+x-cg-demo-api-key: CG-UpUDgPbX2ZqJRN7ipFmYLTAb

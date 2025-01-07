@@ -30,25 +30,25 @@ const PriceHistoryTable = () => {
     setLoading(true);
     try {
     
-      const bitcoinResponse = await await axiosInstance.post(
+      const bitcoinResponse =  await axiosInstance.get(
         `coins/bitcoin/market_chart/range`,
         {
           params: {
             vs_currency: "eur",
-            from: new Date(startDate).getTime() / 1000, 
-            to: new Date().getTime() / 1000, 
+            from:  Math.floor(new Date(startDate).getTime() / 1000), 
+            to:  Math.floor(new Date().getTime() / 1000), 
           },
         }
       );
 
       console.error("waiting:", bitcoinResponse);
-      const ethereumResponse = await await axiosInstance.post(
+      const ethereumResponse =  await axiosInstance.get(
         `coins/ethereum/market_chart/range`,
         {
           params: {
             vs_currency: "eur",
-            from: new Date(startDate).getTime() / 1000,
-            to: new Date().getTime() / 1000,
+            from:  Math.floor(new Date(startDate).getTime() / 1000),
+            to:  Math.floor(new Date().getTime() / 1000),
           },
         }
       );
