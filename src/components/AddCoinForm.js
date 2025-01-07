@@ -4,7 +4,7 @@ import CustomButton from "./ui/CustomButton";
 import {addCoin} from "../utils/apiService";
 
 
-const AddCoinForm = () => {
+const AddCoinForm = ({ refreshCoins }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -19,9 +19,10 @@ const AddCoinForm = () => {
 
   const handleFormSubmit = () => {
     console.log("Form Submitted", formData);
+    
     addCoin(formData);
     setShowForm(false); 
-    
+    refreshCoins();
     setFormData({
       name: "",
       quantity: "",

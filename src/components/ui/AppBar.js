@@ -78,7 +78,7 @@ export default function BackToTop(props) {
             Crypto Dashboard
           </Typography>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <IconButton sx={{ display: 'flex', alignItems: 'center', color: '#fff' }}>
                 <HomeIcon />
@@ -98,9 +98,7 @@ export default function BackToTop(props) {
             </Link>
           </Box>
 
-          <IconButton color="inherit" edge="end" sx={{ display: { xs: 'block', md: 'none' } }}>
-            <MenuIcon />
-          </IconButton>
+          
         </Toolbar>
       </AppBar>
    

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, CardContent, Typography, Grid,Box } from "@mui/material";
+import { Card, CardContent, Typography, Grid, Box } from "@mui/material";
 import { COINGECKO_URL } from "../utils/constants";
+import { axiosInstance } from "../utils/apiService";
 
 const WeeklyChange = () => {
   const [priceChange, setPriceChange] = useState({
@@ -12,42 +13,45 @@ const WeeklyChange = () => {
   useEffect(() => {
     const fetchWeeklyChange = async () => {
       try {
-        const bitcoinResponse = await axios.get(
-          `${COINGECKO_URL}/v3/simple/price?ids=bitcoin&vs_currencies=eur`
+        const bitcoinResponse = await axiosInstance.get(
+          `simple/price?ids=bitcoin,ethereum&vs_currencies=eur`,
+        
         );
-        const ethereumResponse = await axios.get(
-          `${COINGECKO_URL}/v3/simple/price?ids=ethereum&vs_currencies=eur`
-        );
+        // const ethereumResponse = await axiosInstance.get(
+        //   `simple/price?ids=ethereum&vs_currencies=eur`,
+          
+          
+        // );
 
         const bitcoinCurrentPrice = bitcoinResponse.data.bitcoin.eur;
-        const ethereumCurrentPrice = ethereumResponse.data.ethereum.eur;
+        const ethereumCurrentPrice = bitcoinResponse.data.ethereum.eur;
 
-       
-        const bitcoinHistoryResponse = await axios.get(
-          `${COINGECKO_URL}/v3/coins/bitcoin/market_chart`,
+        const bitcoinHistoryResponse = await axiosInstance.get(
+          `coins/bitcoin/market_chart`,
           {
+           
             params: {
               vs_currency: "eur",
               days: 7,
+           
             },
           }
         );
-        const ethereumHistoryResponse = await axios.get(
-          `${COINGECKO_URL}/v3/coins/ethereum/market_chart`,
+        const ethereumHistoryResponse = await axiosInstance.get(
+          `coins/ethereum/market_chart`,
           {
+           
             params: {
               vs_currency: "eur",
               days: 7,
+            
             },
           }
         );
 
-        const bitcoinOldPrice =
-          bitcoinHistoryResponse.data.prices[0][1]; 
-        const ethereumOldPrice =
-          ethereumHistoryResponse.data.prices[0][1]; 
+        const bitcoinOldPrice = bitcoinHistoryResponse.data.prices[0][1];
+        const ethereumOldPrice = ethereumHistoryResponse.data.prices[0][1];
 
-       
         const bitcoinChange =
           ((bitcoinCurrentPrice - bitcoinOldPrice) / bitcoinOldPrice) * 100;
         const ethereumChange =
@@ -67,36 +71,36 @@ const WeeklyChange = () => {
 
   return (
     <Box>
-        <Typography variant="h4"  gutterBottom>
-      Change in One Week
+      <Typography variant="h4" gutterBottom>
+        Change in One Week
       </Typography>
-    
-    <Grid container spacing={2}>
-       
-      <Grid item xs={12} md={6}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5">Bitcoin Weekly Change</Typography>
-            <Typography variant="body1" color="primary">
-              {priceChange.bitcoin ? `${priceChange.bitcoin}%` : "Loading..."}
-            </Typography>
-          </CardContent>
-        </Card>
+
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5">Bitcoin Weekly Change</Typography>
+              <Typography variant="body1" color="primary">
+                {priceChange.bitcoin ? `${priceChange.bitcoin}%` : "Loading..."}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5">Ethereum Weekly Change</Typography>
+              <Typography variant="body1" color="primary">
+                {priceChange.ethereum
+                  ? `${priceChange.ethereum}%`
+                  : "Loading..."}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5">Ethereum Weekly Change</Typography>
-            <Typography variant="body1" color="primary">
-              {priceChange.ethereum ? `${priceChange.ethereum}%` : "Loading..."}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
     </Box>
   );
- 
 };
 
 export default WeeklyChange;

@@ -16,6 +16,7 @@ import {
   Typography
 } from "@mui/material";
 import { COINGECKO_URL } from "../utils/constants";
+import { axiosInstance } from "../utils/apiService";
 const PriceHistoryTable = () => {
   const [startDate, setStartDate] = useState("");
   const [prices, setPrices] = useState([]);
@@ -26,12 +27,11 @@ const PriceHistoryTable = () => {
       alert("Please select a start date!");
       return;
     }
-
     setLoading(true);
     try {
     
-      const bitcoinResponse = await axios.get(
-        `${COINGECKO_URL}/v3/coins/bitcoin/market_chart/range`,
+      const bitcoinResponse = await await axiosInstance.post(
+        `coins/bitcoin/market_chart/range`,
         {
           params: {
             vs_currency: "eur",
@@ -41,9 +41,9 @@ const PriceHistoryTable = () => {
         }
       );
 
-     
-      const ethereumResponse = await axios.get(
-        `${COINGECKO_URL}/v3/coins/ethereum/market_chart/range`,
+      console.error("waiting:", bitcoinResponse);
+      const ethereumResponse = await await axiosInstance.post(
+        `coins/ethereum/market_chart/range`,
         {
           params: {
             vs_currency: "eur",

@@ -37,11 +37,13 @@ const CoinsList = ({ coins, onEdit, onDelete }) => {
 
   const handleAddCoinClick = () => {
     setShowForm(!showForm);
+    if (showForm) { refreshCoins()};
   };
   const refreshCoins = async () => {
     try {
       const fetchedCoins = await fetchCoins();
       coins=fetchedCoins;
+     
     } catch (error) {
       console.error("Failed to fetch coins:", error);
     }
@@ -63,7 +65,7 @@ const CoinsList = ({ coins, onEdit, onDelete }) => {
   };
 
   return (
-    <Container>
+    <Container   sx={{ marginBottom: "21px",}}>
       <Typography variant="h3">
         Crypto Portfolio{" "}
         <CustomButton onClick={handleAddCoinClick}>

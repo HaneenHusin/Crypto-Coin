@@ -10,7 +10,7 @@ const TotalValue = () => {
     const fetchTotalValue = async () => {
       try {
         console.log('Fetching total value...');
-        const response = await axios.get(`${API_BASE_URL}/portfolio/total-value`);
+        const response = await axios.get(`${API_BASE_URL}/coins/total-value`);
         console.log('Total Value Response:', response.data);
         setTotalValue(response.data.totalValue);
       } catch (error) {
