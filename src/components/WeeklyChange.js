@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, CardContent, Typography, Grid, Box } from "@mui/material";
 import { COINGECKO_URL } from "../utils/constants";
 import { axiosInstance } from "../utils/apiService";
+import { API_BASE_URL } from "../utils/constants";
 
 const WeeklyChange = () => {
   const [priceChange, setPriceChange] = useState({
@@ -12,62 +13,19 @@ const WeeklyChange = () => {
 
   useEffect(() => {
     const fetchWeeklyChange = async () => {
-      try {
-        const bitcoinResponse = await axiosInstance.get(
-          `simple/price?ids=bitcoin,ethereum&vs_currencies=eur`,
-        
-        );
-        // const ethereumResponse = await axiosInstance.get(
-        //   `simple/price?ids=ethereum&vs_currencies=eur`,
-          
-          
-        // );
-
-        const bitcoinCurrentPrice = bitcoinResponse.data.bitcoin.eur;
-        const ethereumCurrentPrice = bitcoinResponse.data.ethereum.eur;
-
-        const bitcoinHistoryResponse = await axiosInstance.get(
-          `coins/bitcoin/market_chart`,
-          {
-           
-            params: {
-              vs_currency: "eur",
-              days: 7,
-           
-            },
-          }
-        );
-        const ethereumHistoryResponse = await axiosInstance.get(
-          `coins/ethereum/market_chart`,
-          {
-           
-            params: {
-              vs_currency: "eur",
-              days: 7,
-            
-            },
-          }
-        );
-
-        const bitcoinOldPrice = bitcoinHistoryResponse.data.prices[0][1];
-        const ethereumOldPrice = ethereumHistoryResponse.data.prices[0][1];
-
-        const bitcoinChange =
-          ((bitcoinCurrentPrice - bitcoinOldPrice) / bitcoinOldPrice) * 100;
-        const ethereumChange =
-          ((ethereumCurrentPrice - ethereumOldPrice) / ethereumOldPrice) * 100;
-
-        setPriceChange({
-          bitcoin: bitcoinChange.toFixed(2),
-          ethereum: ethereumChange.toFixed(2),
-        });
-      } catch (error) {
-        console.error("Error fetching weekly change data:", error);
-      }
+        try {
+            const response = await axios.get(`${API_BASE_URL}/api/fetchWeeklyChange`);
+            setPriceChange({
+                bitcoin: response.data.bitcoin,
+                ethereum: response.data.ethereum,
+            });
+        } catch (error) {
+            console.error("Error fetching weekly change data:", error);
+        }
     };
 
     fetchWeeklyChange();
-  }, []);
+}, []);
 
   return (
     <Box>
