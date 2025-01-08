@@ -14,7 +14,7 @@ const WeeklyChange = () => {
   useEffect(() => {
     const fetchWeeklyChange = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/api/fetchWeeklyChange`);
+            const response = await axios.get(`${API_BASE_URL}/fetchWeeklyChange`);
             setPriceChange({
                 bitcoin: response.data.bitcoin,
                 ethereum: response.data.ethereum,
